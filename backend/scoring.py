@@ -105,7 +105,7 @@ def workspace_from_events(session_events: list[dict]) -> dict:
     files_created: list[str] = []
     dirs_created: list[str] = []
     tool_sequence: list[str] = []
-    current_file: str | None = None
+    current_file: Optional[str] = None
     lines_added = 0
     lines_deleted = 0
     seen: set[str] = set()
@@ -142,7 +142,7 @@ def workspace_from_events(session_events: list[dict]) -> dict:
     }
 
 
-def w_to_text(stats, ws: dict | None = None) -> str:
+def w_to_text(stats, ws: Optional[dict] = None) -> str:
     current_file = (ws or {}).get("current_file") or stats.current_file or "unknown"
     lines_added = (ws or {}).get("lines_added") or stats.total_lines_added
     lines_deleted = (ws or {}).get("lines_deleted") or stats.total_lines_deleted
@@ -168,7 +168,7 @@ def build_query(
     stats,
     h_t_recent: list[str],
     screen_commentary: str = "",
-    ws: dict | None = None,
+    ws: Optional[dict] = None,
     screen_analysis: str = "",
 ) -> str:
     # commentary (1-sentence) seeds the query when there's no user message;
