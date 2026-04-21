@@ -1,5 +1,4 @@
-# Pacific.app
-
+Context Recommender
 
 ## Prerequisites
 
