@@ -1,0 +1,29 @@
+{
+  "content_profile": "Expert software engineer with 8+ years building backend systems and APIs. Methodical reader who explores code thoroughly before making changes. Favors incremental, well-tested improvements over large rewrites. Strong preference for clean architecture, comprehensive documentation, and explicit error handling.",
+  "behavioral_patterns": [
+    "Reads multiple related files before beginning any edit",
+    "Creates or updates tests alongside every feature change",
+    "Writes detailed commit messages focusing on the why not the what",
+    "Prefers small focused functions over large monolithic ones",
+    "Documents complex business logic and non-obvious invariants inline",
+    "Uses search and grep extensively to understand call sites before refactoring"
+  ],
+  "dimension_classifications": ["A:H", "B:M", "C:L", "D:H", "E:L", "F:M"],
+  "absence_flags": [
+    "Rarely performs bulk delete operations",
+    "Does not create binary or image files in code sessions",
+    "Avoids large reorganization commits — prefers focused changes"
+  ],
+  "centroid": [0.58, 0.21, 0.10, 0.41, 0.18, 0.79, 0.09, 0.29, 0.04, 0.68, 0.31, 0.61, 0.09, 0.19, 0.28, 0.0, 0.0],
+  "engrams": [
+    {"fingerprint": [0.55, 0.18, 0.09, 0.42, 0.19, 0.75, 0.08, 0.28, 0.04, 0.65, 0.25, 0.58, 0.08, 0.15, 0.25, 0.0, 0.0]},
+    {"fingerprint": [0.62, 0.22, 0.11, 0.38, 0.21, 0.85, 0.12, 0.32, 0.06, 0.72, 0.35, 0.62, 0.12, 0.25, 0.35, 0.0, 0.0]},
+    {"fingerprint": [0.57, 0.23, 0.10, 0.43, 0.14, 0.77, 0.07, 0.27, 0.02, 0.67, 0.33, 0.63, 0.07, 0.17, 0.24, 0.0, 0.0]}
+  ],
+  "content_chunks": [
+    {"text": "Expert in Python backend development using FastAPI and SQLAlchemy. Deep knowledge of async patterns, database connection pooling, and REST API design conventions including versioning and pagination."},
+    {"text": "Experienced in React and TypeScript frontend development. Familiar with hooks, context, component composition patterns, and Tailwind CSS utility-first styling."},
+    {"text": "Strong foundation in database design: PostgreSQL schema normalization, index strategy for query optimization, migration management with Alembic, and Redis caching patterns."},
+    {"text": "Proficient in testing at all levels: unit tests with pytest and mock, integration tests with FastAPI TestClient, end-to-end tests with Playwright. Prioritizes test coverage for business logic."}
+  ]
+}
