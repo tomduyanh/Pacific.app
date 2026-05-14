@@ -1,0 +1,54 @@
+# Environment variables & secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+ENV/
+
+# Node & frontend builds
+node_modules/
+frontend/dist/
+desktop/dist/
+.npm/
+
+# Runtime state & vector caches
+data/session_state.json
+data/embed_cache.json
+
+# Submissions, screen recordings, media & draft documents
+submission/
+*.mp4
+*.mov
+*.avi
+*.docx
+*.tex
+*.pdf
+
+# Editor & agent configs
+.claude/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Operating system
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local planning & temporary notes
+*.local.md
+bullet_bank.md
+facts.md
+project_evidence_report.md
