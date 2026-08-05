@@ -1,0 +1,331 @@
+:root {
+  --bg: rgba(28, 28, 32, 0.94);
+  --bg-soft: rgba(48, 48, 54, 0.94);
+  --ink: #f3f4f6;
+  --muted: #9ca3af;
+  --accent: #ff5a4d;          /* the character's red */
+  --accent-soft: rgba(255, 90, 77, 0.16);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --pop: cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  /* Transparent so empty regions are visually and (via setIgnoreMouseEvents)
+     functionally click-through to the windows underneath. */
+  background: transparent;
+  font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+  color: var(--ink);
+  user-select: none;
+  overflow: hidden;
+}
+
+/* Bottom-anchored: the character sits at the corner and the bubble grows up
+   out of it, so the motion reads as the assistant offering you something. */
+.stage {
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+/* ── The bubble ─────────────────────────────────────────────────────────── */
+
+.bubble {
+  position: relative;
+  width: 100%;
+  background: var(--bg);
+  border-radius: 14px;
+  padding: 12px 13px 11px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.42), 0 1px 3px rgba(0, 0, 0, 0.3);
+  cursor: grab;
+  animation: bubblePop 0.42s var(--pop) both;
+  transform-origin: 34px 100%;   /* the tail, so it unfurls out of the fox */
+}
+.bubble:active { cursor: grabbing; }
+.bubble.dragging { opacity: 0.55; transform: scale(0.98); }
+.bubble.leaving { animation: bubbleGo 0.2s var(--ease) both; }
+
+/* Tail pointing down at the character. */
+.bubble::after {
+  content: "";
+  position: absolute;
+  left: 26px;
+  bottom: -7px;
+  width: 16px;
+  height: 16px;
+  background: var(--bg);
+  border-radius: 3px;
+  transform: rotate(45deg);
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.18);
+}
+
+.bubble-close {
+  position: absolute;
+  top: 7px;
+  right: 8px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 6px;
+}
+.bubble-close:hover { color: var(--ink); background: rgba(255, 255, 255, 0.08); }
+
+.bubble-head { display: flex; align-items: center; gap: 7px; padding-right: 18px; }
+.bubble-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bubble-desc {
+  margin: 5px 0 10px;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.kind-badge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+.kind-meta   { background: rgba(167, 139, 250, 0.2); color: #c4b5fd; }
+.kind-file   { background: rgba(96, 165, 250, 0.2);  color: #93c5fd; }
+.kind-data   { background: rgba(52, 211, 153, 0.2);  color: #6ee7b7; }
+.kind-people { background: rgba(251, 146, 60, 0.2);  color: #fdba74; }
+
+/* Actions — the drag pill is the primary affordance, so it looks like a button
+   you grab rather than one you click. */
+.bubble-actions { display: flex; align-items: center; gap: 6px; }
+.drag-pill {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: grab;
+  transition: transform 0.14s var(--ease), filter 0.14s var(--ease);
+}
+.drag-pill:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.drag-pill:active { cursor: grabbing; transform: translateY(0) scale(0.98); }
+.drag-glyph { font-size: 13px; line-height: 1; }
+
+.ghost {
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--ink);
+  font-size: 11.5px;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.14s var(--ease);
+}
+.ghost:hover { background: rgba(255, 255, 255, 0.16); }
+.ghost.copied { background: var(--accent-soft); color: var(--accent); }
+
+/* Which of several is showing. */
+.dots { display: flex; gap: 5px; justify-content: center; margin-top: 9px; }
+.dots:empty { display: none; }
+.dot-pip {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  cursor: pointer;
+  transition: background 0.15s var(--ease), transform 0.15s var(--ease);
+}
+.dot-pip:hover { transform: scale(1.35); }
+.dot-pip.on { background: var(--accent); }
+
+/* ── The character ──────────────────────────────────────────────────────── */
+
+.fox {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* Grab the character to move the window. Handled in JS rather than with
+     -webkit-app-region, which swallows mousedown and breaks click-through. */
+  cursor: grab;
+  padding: 2px;
+}
+.fox.grabbing { cursor: grabbing; }
+.fox.grabbing .fox-art { animation: none; transform: scale(1.04); }
+.fox-toggle {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  cursor: inherit;
+}
+.fox-toggle:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.fox-count[hidden] { display: none; }
+.fox-art {
+  width: 76px;
+  height: 76px;
+  display: block;
+  flex-shrink: 0;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.45));
+  animation: foxBreathe 4.5s ease-in-out infinite;
+}
+.fox-art.pop { animation: foxPop 0.4s var(--pop), foxBreathe 4.5s ease-in-out 0.4s infinite; }
+.fox[data-emote="searching"] .fox-art { animation: foxSearch 1.4s ease-in-out infinite; }
+
+.fox-count {
+  position: absolute;
+  top: 4px;
+  left: 54px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Controls hide until you approach the character, so the resting state is just
+   the fox rather than a widget. */
+.bar {
+  cursor: default;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 5px 8px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: translateX(-6px);
+  pointer-events: none;
+  transition: opacity 0.18s var(--ease), transform 0.18s var(--ease);
+}
+.fox:hover .bar, .fox:focus-within .bar { opacity: 1; transform: none; pointer-events: auto; }
+
+.bar-status {
+  font-size: 10.5px;
+  color: var(--muted);
+  max-width: 130px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bar button {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1;
+  padding: 3px 4px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.bar button:hover { color: var(--ink); background: rgba(255, 255, 255, 0.1); }
+.bar button.spinning { animation: spin 0.9s linear infinite; }
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.dot.busy { animation: pulse 1.1s ease-out infinite; }
+.dot.offline { background: #ef4444; }
+
+/* Collapsed: character only. */
+.stage.collapsed .bubbles { display: none; }
+
+/* ── Toast ──────────────────────────────────────────────────────────────── */
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 14px;
+  transform: translate(-50%, 8px);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 11.5px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+  pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ── Motion ─────────────────────────────────────────────────────────────── */
+
+@keyframes bubblePop {
+  0%   { opacity: 0; transform: translateY(10px) scale(0.86); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes bubbleGo {
+  to { opacity: 0; transform: translateY(6px) scale(0.94); }
+}
+@keyframes foxBreathe {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+@keyframes foxPop {
+  0%   { transform: translateY(-4px) scale(0.84) rotate(-7deg); }
+  60%  { transform: translateY(2px)  scale(1.07) rotate(3deg); }
+  100% { transform: none; }
+}
+@keyframes foxSearch {
+  0%, 100% { transform: rotate(-3deg); }
+  50%      { transform: rotate(3deg); }
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(255, 90, 77, 0.6); }
+  100% { box-shadow: 0 0 0 7px rgba(255, 90, 77, 0); }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,4 @@
+node_modules/
+dist/
+native/macos/build/
+native/windows/*.exe

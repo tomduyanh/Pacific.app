@@ -1,0 +1,27 @@
+{
+  "name": "pacific-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pacific desktop shell — floating context overlay + native screen/accessibility capture wrapping the Pacific recommender backend.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "PACIFIC_DEV=1 electron .",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "optionalDependencies": {
+    "active-win": "^8.2.1"
+  },
+  "build": {
+    "appId": "com.pacific.desktop",
+    "productName": "Pacific",
+    "files": [
+      "src/**/*",
+      "native/**/*"
+    ]
+  }
+}

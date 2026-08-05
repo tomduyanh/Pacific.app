@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self'; connect-src http://127.0.0.1:* http://localhost:*; img-src 'self' data: http://127.0.0.1:* http://localhost:*; style-src 'self' 'unsafe-inline';" />
+    <title>Pacific Overlay</title>
+    <link rel="stylesheet" href="overlay.css" />
+  </head>
+  <body>
+    <div id="stage" class="stage">
+      <!-- Everything worth pasting, stacked out of the character. -->
+      <div id="bubbles" class="bubbles"></div>
+
+      <!-- The character. Also the handle for moving the window. -->
+      <div id="fox" class="fox">
+        <button id="fox-toggle" class="fox-toggle" type="button"
+                aria-label="Toggle suggested contexts" aria-expanded="true" aria-controls="bubbles"
+                title="Click to hide suggestions · Drag to move">
+          <img id="companion" class="fox-art" alt="Pacific" width="76" height="76" draggable="false" />
+          <span id="count" class="fox-count" hidden>0</span>
+        </button>
+        <div id="bar" class="bar">
+          <span id="dot" class="dot"></span>
+          <span id="status" class="bar-status">Starting…</span>
+          <button id="btn-capture" title="Look at my screen now">&#10227;</button>
+          <button id="btn-dashboard" title="Open dashboard">&#9638;</button>
+          <button id="btn-collapse" title="Hide suggestions" aria-expanded="true" aria-controls="bubbles">&#9662;</button>
+        </div>
+      </div>
+    </div>
+    <div id="toast" class="toast" hidden></div>
+    <script src="overlay.js"></script>
+  </body>
+</html>
