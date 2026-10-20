@@ -27,7 +27,9 @@ EMBED_DIM = int(os.getenv("EMBED_DIM", "768"))
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 
-GEMINI_BASE = "https://generativelanguage.googleapis.com/v1beta"
+# Overridable so a Gemini-compatible proxy or local stub can stand in for the
+# real API (benchmarks, offline testing, alternative model backends).
+GEMINI_BASE = os.getenv("GEMINI_BASE", "https://generativelanguage.googleapis.com/v1beta").rstrip("/")
 GEMINI_EMBED_MODEL = os.getenv("GEMINI_EMBED_MODEL", "models/gemini-embedding-001")
 
 # gemini-flash-latest resolves to a 2.5 Flash build with *thinking* on by
