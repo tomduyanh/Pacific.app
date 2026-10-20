@@ -20,6 +20,7 @@ from contextlib import asynccontextmanager
 
 import psutil
 
+import backend.embed as embed
 import backend.main as main
 import backend.scoring as scoring
 from backend.state import AppState
@@ -118,6 +119,8 @@ async def bench_metrics():
         "rss_mb": round(mem.rss / 2**20, 1),
         "pool_size": len(main.app_state.pool),
         "session_events": len(main.app_state.session_events),
+        "embed_cache_entries": len(embed._cache),
+        "attached": len(main.app_state.attached),
     }
 
 

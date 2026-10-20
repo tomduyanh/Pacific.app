@@ -40,7 +40,7 @@ def make_workdir(pool: list[dict] | None = None) -> Path:
     return work
 
 
-def _wait_http(url: str, timeout: float, proc: subprocess.Popen | None = None) -> None:
+def wait_http(url: str, timeout: float, proc: subprocess.Popen | None = None) -> None:
     deadline = time.time() + timeout
     while time.time() < deadline:
         if proc is not None and proc.poll() is not None:
@@ -73,7 +73,7 @@ class PacificServer:
              "--host", "127.0.0.1", "--port", str(self.port), "--log-level", "warning"],
             cwd=self.workdir, env=self.env, stdout=out, stderr=subprocess.STDOUT,
         )
-        _wait_http(self.url + "/__bench/metrics", timeout, self.proc)
+        wait_http(self.url + "/__bench/metrics", timeout, self.proc)
         self.startup_s = time.time() - started
         return self
 

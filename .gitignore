@@ -52,3 +52,7 @@ desktop.ini
 bullet_bank.md
 facts.md
 project_evidence_report.md
+
+# Benchmarks: local endpoint settings and per-run server logs
+benchmarks/endpoint.env
+benchmarks/results/**/*.log
