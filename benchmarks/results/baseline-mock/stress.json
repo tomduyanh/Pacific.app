@@ -849,5 +849,56 @@
     "rss_mb": 160.9
    }
   }
+ },
+ "live": {
+  "ticks": 24,
+  "outcomes": {
+   "http_503": 24
+  },
+  "tick_interval_ms": {
+   "n": 23,
+   "mean": 5025.8,
+   "p50": 5009.8,
+   "p95": 5107.2,
+   "p99": 5120.2,
+   "max": 5120.2
+  },
+  "tick_request_ms": {
+   "n": 24,
+   "mean": 21.4,
+   "p50": 5.3,
+   "p95": 101.7,
+   "p99": 114.2,
+   "max": 114.2
+  },
+  "vision_ms": {
+   "n": 0
+  },
+  "rescore_ms": {
+   "n": 0
+  },
+  "frame_to_ranking_ms": {
+   "n": 0
+  },
+  "rescore_failures": 0,
+  "message_ms": {
+   "n": 6,
+   "mean": 106.4,
+   "p50": 102.4,
+   "p95": 138.4,
+   "p99": 138.4,
+   "max": 138.4
+  },
+  "message_failures": 0,
+  "loop_lag_ms": {
+   "n": 11674,
+   "mean": 0.35,
+   "p50": 0.27,
+   "p95": 0.47,
+   "p99": 0.71,
+   "max": 125.92
+  },
+  "pool_size": 1000,
+  "seconds": 120
  }
 }
