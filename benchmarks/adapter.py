@@ -2,8 +2,8 @@
 
 Only needed when the endpoint does not implement benchmarks/ENDPOINT_SPEC.md
 directly. Pacific keeps speaking Gemini; this process forwards each call to
-the custom API. Fill in the two `upstream_*` functions once its request and
-response format is known. Everything else (routing, batching, errors) is done.
+an OpenAI-compatible API (/chat/completions for text and vision,
+/embeddings for vectors), as served by vLLM.
 
     BENCH_UPSTREAM_URL=https://... BENCH_API_KEY=... python -m benchmarks.adapter --port 8766
 
@@ -14,6 +14,7 @@ from __future__ import annotations
 import argparse
 import base64
 import os
+import re
 
 import httpx
 import uvicorn
@@ -34,17 +35,49 @@ def client() -> httpx.AsyncClient:
     return _client
 
 
-# ── Fill these in once the custom endpoint's format is known ────────────────
+# ── Upstream: OpenAI-compatible chat completions (vLLM gateway) ──────────────
+
+UPSTREAM_MODEL = os.environ.get("BENCH_UPSTREAM_MODEL", "")
+# Embeddings may live on a different server than the chat model.
+EMBED_URL = os.environ.get("BENCH_UPSTREAM_EMBED_URL", "").rstrip("/") or UPSTREAM_URL
+EMBED_MODEL = os.environ.get("BENCH_UPSTREAM_EMBED_MODEL", "")
+# Qwen3-family models think out loud by default. The thinking counts against
+# max_tokens and lands in the reply, which breaks Pacific's short extraction
+# prompts and its JSON parsing, so it is switched off unless asked for.
+DISABLE_THINKING = os.environ.get("BENCH_DISABLE_THINKING", "1").lower() in {"1", "true", "yes"}
+_THINK = re.compile(r"<think>.*?</think>", re.S)
+
+
+def _headers() -> dict:
+    return {"Authorization": f"Bearer {API_KEY}"} if API_KEY else {}
+
 
 async def upstream_embed(texts: list[str]) -> list[list[float]]:
     """Return one vector per text, in order, all of the same length."""
-    raise NotImplementedError("adapter.upstream_embed: custom endpoint format not filled in yet")
+    if not EMBED_MODEL:
+        raise RuntimeError("no embedding model configured (BENCH_UPSTREAM_EMBED_MODEL)")
+    resp = await client().post(f"{EMBED_URL}/embeddings", headers=_headers(),
+                               json={"model": EMBED_MODEL, "input": texts})
+    resp.raise_for_status()
+    data = sorted(resp.json()["data"], key=lambda d: d["index"])
+    return [d["embedding"] for d in data]
 
 
 async def upstream_generate(prompt: str, image: bytes | None, mime_type: str | None,
                             max_output_tokens: int) -> str:
     """Return the model's text reply. `image` is set for vision calls."""
-    raise NotImplementedError("adapter.upstream_generate: custom endpoint format not filled in yet")
+    content: list[dict] | str = prompt
+    if image is not None:
+        data_url = f"data:{mime_type or 'image/jpeg'};base64,{base64.b64encode(image).decode()}"
+        content = [{"type": "text", "text": prompt}, {"type": "image_url", "image_url": {"url": data_url}}]
+    body: dict = {"model": UPSTREAM_MODEL, "messages": [{"role": "user", "content": content}],
+                  "max_tokens": max_output_tokens}
+    if DISABLE_THINKING:
+        body["chat_template_kwargs"] = {"enable_thinking": False}
+    resp = await client().post(f"{UPSTREAM_URL}/chat/completions", headers=_headers(), json=body)
+    resp.raise_for_status()
+    text = resp.json()["choices"][0]["message"].get("content") or ""
+    return _THINK.sub("", text).strip()
 
 
 # ── Gemini-format routing ────────────────────────────────────────────────────
@@ -77,6 +110,9 @@ async def gemini(path: str, request: Request):
         return JSONResponse({"error": {"message": str(exc)}}, status_code=exc.response.status_code)
     except httpx.TransportError as exc:
         return JSONResponse({"error": {"message": f"upstream unreachable: {exc}"}}, status_code=503)
+    except RuntimeError as exc:
+        # Not transient: a 501 skips Pacific's retries and surfaces in preflight.
+        return JSONResponse({"error": {"message": str(exc)}}, status_code=501)
     return JSONResponse({"error": {"message": f"unsupported method {method}"}}, status_code=404)
 
 

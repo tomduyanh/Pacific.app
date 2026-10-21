@@ -46,9 +46,13 @@ python -m benchmarks.report benchmarks/results/<run> --baseline benchmarks/resul
 
 1. Copy `benchmarks/endpoint.env.example` to `benchmarks/endpoint.env` and fill it in.
 2. Set the key as an environment secret: `BENCH_API_KEY`.
-3. If the endpoint implements `ENDPOINT_SPEC.md` (Gemini format), point
-   `BENCH_GEMINI_BASE` at it. Otherwise set `BENCH_USE_ADAPTER=1` and fill in
-   the two `upstream_*` functions in `adapter.py`.
+3. For an OpenAI-compatible server such as vLLM, keep `BENCH_USE_ADAPTER=1` and
+   set the `BENCH_UPSTREAM_*` model and URL settings. `adapter.py` translates
+   Pacific's Gemini-format calls and turns Qwen3 thinking off. If the endpoint
+   implements `ENDPOINT_SPEC.md` (Gemini format) itself, set
+   `BENCH_USE_ADAPTER=0` and point `BENCH_GEMINI_BASE` at it.
+   Pacific also needs an **embedding** model. A chat or vision model alone
+   cannot supply one.
 4. `python -m benchmarks.preflight` must pass before a full run.
 
 ## Quality method

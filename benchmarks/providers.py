@@ -85,13 +85,14 @@ def provider_context(provider: str):
     if provider != "endpoint" or not uses_adapter():
         yield pacific_env(provider)
         return
-    upstream = endpoint_settings().get("BENCH_UPSTREAM_URL", "")
-    if not upstream:
+    settings = endpoint_settings()
+    if not settings.get("BENCH_UPSTREAM_URL"):
         raise SystemExit("BENCH_USE_ADAPTER=1 but BENCH_UPSTREAM_URL is empty in endpoint.env")
+    adapter_env = {k: v for k, v in settings.items() if k.startswith(("BENCH_UPSTREAM_", "BENCH_DISABLE_"))}
     port = free_port()
     proc = subprocess.Popen(
         [sys.executable, "-m", "benchmarks.adapter", "--port", str(port)],
-        cwd=REPO, env={**os.environ, "BENCH_UPSTREAM_URL": upstream},
+        cwd=REPO, env={**os.environ, **adapter_env},
     )
     try:
         wait_http(f"http://127.0.0.1:{port}/", 30, proc)
