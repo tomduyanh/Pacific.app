@@ -63,19 +63,17 @@ At 5k tokens:
 
 Scenario latency (session reset + replay + rescore): mean 1882 ms.
 
-**Vs baseline run** (5k, % of oracle): Pacific 70% → 81%.
-
 ### Pool of 1000 items · provider `endpoint` · 69 scenarios
 
-**Headline (5k-token budget):** Pacific packs **67%** of the best achievable relevant context, vs **85%** for the strongest baseline (Embedding only): -18 pts (-28 to -10) *. Recall 65% vs 82%; relevant share of tokens 25% vs 33%.
+**Headline (5k-token budget):** Pacific packs **68%** of the best achievable relevant context, vs **71%** for the strongest baseline (Embedding only): -3 pts (-14 to +7). Recall 66% vs 68%; relevant share of tokens 25% vs 28%.
 
 % of oracle (95% CI). The oracle is the best possible pick under the same budget, computed from the labels.
 
 | Method | 2k tokens | 5k tokens | 10k tokens | 20k tokens |
 |---|---|---|---|---|
-| Pacific | 66% (56–76) | 67% (57–74) | 72% (63–79) | 77% (69–83) |
-| Hybrid (BM25 + embedding) | 68% (57–77) | 71% (61–79) | 80% (73–87) | 92% (88–96) |
-| Embedding only | 72% (63–81) | 85% (80–90) | 91% (87–95) | 98% (96–99) |
+| Pacific | 68% (58–77) | 68% (59–75) | 73% (65–81) | 79% (72–85) |
+| Hybrid (BM25 + embedding) | 65% (53–74) | 65% (55–74) | 67% (57–76) | 70% (60–79) |
+| Embedding only | 61% (52–69) | 71% (63–78) | 73% (66–80) | 75% (68–82) |
 | BM25 only | 58% (47–68) | 61% (50–69) | 64% (54–72) | 66% (56–75) |
 | Most recent | 0% (0–0) | 0% (0–0) | 0% (0–0) | 0% (0–0) |
 | Pool order | 8% (4–12) | 13% (8–18) | 28% (20–37) | 51% (41–60) |
@@ -85,20 +83,20 @@ Pacific minus each baseline, % of oracle (`*` = 95% CI excludes zero):
 
 | vs | 2k | 5k | 10k | 20k |
 |---|---|---|---|---|
-| Hybrid (BM25 + embedding) | -1 pts (-8 to +5) | -4 pts (-10 to +1) | -9 pts (-15 to -3) * | -16 pts (-22 to -11) * |
-| Embedding only | -6 pts (-16 to +4) | -18 pts (-28 to -10) * | -20 pts (-29 to -11) * | -21 pts (-28 to -15) * |
-| BM25 only | +8 pts (+2 to +16) * | +6 pts (+1 to +12) * | +8 pts (+2 to +15) * | +10 pts (+3 to +19) * |
-| Most recent | +66 pts (+56 to +76) * | +67 pts (+57 to +74) * | +72 pts (+63 to +79) * | +77 pts (+69 to +83) * |
-| Pool order | +59 pts (+49 to +68) * | +54 pts (+43 to +64) * | +43 pts (+29 to +57) * | +26 pts (+13 to +38) * |
-| Random | +66 pts (+56 to +75) * | +66 pts (+56 to +74) * | +70 pts (+62 to +78) * | +74 pts (+67 to +81) * |
+| Hybrid (BM25 + embedding) | +3 pts (-3 to +10) | +2 pts (-2 to +7) | +6 pts (+0 to +13) * | +9 pts (+2 to +17) * |
+| Embedding only | +7 pts (-5 to +19) | -3 pts (-14 to +7) | +0 pts (-10 to +9) | +4 pts (-4 to +11) |
+| BM25 only | +10 pts (+3 to +18) * | +7 pts (+2 to +13) * | +10 pts (+3 to +17) * | +12 pts (+5 to +21) * |
+| Most recent | +68 pts (+58 to +77) * | +68 pts (+59 to +75) * | +73 pts (+65 to +81) * | +79 pts (+72 to +85) * |
+| Pool order | +60 pts (+50 to +69) * | +55 pts (+44 to +64) * | +45 pts (+31 to +58) * | +28 pts (+15 to +40) * |
+| Random | +68 pts (+58 to +77) * | +67 pts (+58 to +75) * | +72 pts (+64 to +79) * | +76 pts (+69 to +83) * |
 
 At 5k tokens:
 
 | Method | Recall | Token precision | Essential items hit | nDCG | Tokens used |
 |---|---|---|---|---|---|
-| Pacific | 65% | 25% | 74% | 63% | 4,983 |
-| Hybrid (BM25 + embedding) | 69% | 26% | 76% | 64% | 4,981 |
-| Embedding only | 82% | 33% | 90% | 82% | 4,984 |
+| Pacific | 66% | 25% | 75% | 63% | 4,980 |
+| Hybrid (BM25 + embedding) | 64% | 24% | 72% | 62% | 4,975 |
+| Embedding only | 68% | 28% | 81% | 70% | 4,980 |
 | BM25 only | 59% | 21% | 66% | 57% | 4,983 |
 | Most recent | 0% | 0% | 0% | 0% | 4,935 |
 | Pool order | 12% | 5% | 9% | 6% | 5,000 |
@@ -108,23 +106,21 @@ At 5k tokens:
 
 | Type | n | Pacific | Hybrid (BM25 + embedding) | Embedding only | BM25 only | Most recent | Pool order | Random |
 |---|---|---|---|---|---|---|---|---|
-| ambient | 8 | 68% | 81% | 81% | 68% | 0% | 11% | 1% |
-| budget_trap | 4 | 36% | 36% | 79% | 25% | 0% | 4% | 3% |
-| context_pair | 8 | 74% | 85% | 83% | 85% | 0% | 20% | 0% |
-| keyword_trap | 4 | 94% | 94% | 94% | 79% | 0% | 30% | 0% |
-| lookup | 10 | 81% | 86% | 98% | 71% | 0% | 0% | 1% |
-| multi_doc | 10 | 60% | 65% | 74% | 52% | 0% | 21% | 1% |
-| multi_turn | 3 | 63% | 56% | 67% | 56% | 0% | 7% | 1% |
-| paraphrase | 8 | 34% | 40% | 86% | 25% | 0% | 19% | 1% |
-| people | 6 | 89% | 77% | 93% | 77% | 0% | 0% | 0% |
+| ambient | 8 | 75% | 79% | 70% | 68% | 0% | 11% | 1% |
+| budget_trap | 4 | 36% | 25% | 79% | 25% | 0% | 4% | 3% |
+| context_pair | 8 | 74% | 85% | 62% | 85% | 0% | 20% | 0% |
+| keyword_trap | 4 | 94% | 94% | 65% | 79% | 0% | 30% | 0% |
+| lookup | 10 | 81% | 81% | 88% | 71% | 0% | 0% | 1% |
+| multi_doc | 10 | 61% | 57% | 56% | 52% | 0% | 21% | 1% |
+| multi_turn | 3 | 63% | 56% | 47% | 56% | 0% | 7% | 1% |
+| paraphrase | 8 | 34% | 25% | 70% | 25% | 0% | 19% | 1% |
+| people | 6 | 89% | 77% | 89% | 77% | 0% | 0% | 0% |
 
-**What the user actually sees** (Pacific's top-3 suggestions, gate applied): recall 60%, token precision 42%, essential items hit 70%, 3,660 tokens on average.
+**What the user actually sees** (Pacific's top-3 suggestions, gate applied): recall 60%, token precision 42%, essential items hit 70%, 3,659 tokens on average.
 
 **Gate:** suggested something on 50% of the 8 off-topic or filler turns (should be 0%); stayed silent on 0% of the 61 real requests.
 
-Scenario latency (session reset + replay + rescore): mean 1861 ms.
-
-**Vs baseline run** (5k, % of oracle): Pacific 59% → 67%.
+Scenario latency (session reset + replay + rescore): mean 1891 ms.
 
 ## Performance and resilience
 
