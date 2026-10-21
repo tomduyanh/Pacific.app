@@ -900,5 +900,589 @@
   },
   "pool_size": 1000,
   "seconds": 120
+ },
+ "soak": {
+  "pool_size": 1000,
+  "seconds": 600,
+  "event_rate_per_s": 10,
+  "samples": [
+   {
+    "t_s": 0.1,
+    "rss_mb": 108.9,
+    "session_events": 0,
+    "embed_cache_entries": 1005,
+    "state_file_kb": 0.3,
+    "message_ms": 120.6
+   },
+   {
+    "t_s": 10.3,
+    "rss_mb": 116.7,
+    "session_events": 98,
+    "embed_cache_entries": 1009,
+    "state_file_kb": 11.8,
+    "message_ms": 144.1
+   },
+   {
+    "t_s": 20.4,
+    "rss_mb": 116.9,
+    "session_events": 195,
+    "embed_cache_entries": 1013,
+    "state_file_kb": 23.6,
+    "message_ms": 149.0
+   },
+   {
+    "t_s": 30.6,
+    "rss_mb": 117.2,
+    "session_events": 292,
+    "embed_cache_entries": 1017,
+    "state_file_kb": 35.2,
+    "message_ms": 176.2
+   },
+   {
+    "t_s": 40.8,
+    "rss_mb": 117.3,
+    "session_events": 389,
+    "embed_cache_entries": 1021,
+    "state_file_kb": 46.9,
+    "message_ms": 166.7
+   },
+   {
+    "t_s": 51.0,
+    "rss_mb": 117.3,
+    "session_events": 486,
+    "embed_cache_entries": 1025,
+    "state_file_kb": 58.6,
+    "message_ms": 163.2
+   },
+   {
+    "t_s": 61.1,
+    "rss_mb": 117.4,
+    "session_events": 584,
+    "embed_cache_entries": 1029,
+    "state_file_kb": 70.4,
+    "message_ms": 99.9
+   },
+   {
+    "t_s": 71.2,
+    "rss_mb": 117.4,
+    "session_events": 681,
+    "embed_cache_entries": 1033,
+    "state_file_kb": 82.3,
+    "message_ms": 99.6
+   },
+   {
+    "t_s": 81.3,
+    "rss_mb": 117.7,
+    "session_events": 779,
+    "embed_cache_entries": 1037,
+    "state_file_kb": 94.1,
+    "message_ms": 112.1
+   },
+   {
+    "t_s": 91.4,
+    "rss_mb": 117.9,
+    "session_events": 876,
+    "embed_cache_entries": 1041,
+    "state_file_kb": 105.7,
+    "message_ms": 109.8
+   },
+   {
+    "t_s": 101.5,
+    "rss_mb": 118.2,
+    "session_events": 973,
+    "embed_cache_entries": 1045,
+    "state_file_kb": 117.4,
+    "message_ms": 102.0
+   },
+   {
+    "t_s": 111.6,
+    "rss_mb": 118.4,
+    "session_events": 1071,
+    "embed_cache_entries": 1049,
+    "state_file_kb": 129.3,
+    "message_ms": 101.8
+   },
+   {
+    "t_s": 121.7,
+    "rss_mb": 119.6,
+    "session_events": 1168,
+    "embed_cache_entries": 1053,
+    "state_file_kb": 141.0,
+    "message_ms": 111.6
+   },
+   {
+    "t_s": 131.9,
+    "rss_mb": 119.8,
+    "session_events": 1265,
+    "embed_cache_entries": 1057,
+    "state_file_kb": 152.8,
+    "message_ms": 134.4
+   },
+   {
+    "t_s": 142.0,
+    "rss_mb": 120.0,
+    "session_events": 1362,
+    "embed_cache_entries": 1061,
+    "state_file_kb": 164.7,
+    "message_ms": 114.8
+   },
+   {
+    "t_s": 152.2,
+    "rss_mb": 120.2,
+    "session_events": 1459,
+    "embed_cache_entries": 1065,
+    "state_file_kb": 176.5,
+    "message_ms": 154.9
+   },
+   {
+    "t_s": 162.4,
+    "rss_mb": 120.4,
+    "session_events": 1556,
+    "embed_cache_entries": 1069,
+    "state_file_kb": 188.0,
+    "message_ms": 196.4
+   },
+   {
+    "t_s": 172.5,
+    "rss_mb": 120.6,
+    "session_events": 1653,
+    "embed_cache_entries": 1073,
+    "state_file_kb": 199.8,
+    "message_ms": 137.7
+   },
+   {
+    "t_s": 182.6,
+    "rss_mb": 120.8,
+    "session_events": 1750,
+    "embed_cache_entries": 1077,
+    "state_file_kb": 211.5,
+    "message_ms": 122.5
+   },
+   {
+    "t_s": 192.8,
+    "rss_mb": 121.1,
+    "session_events": 1847,
+    "embed_cache_entries": 1081,
+    "state_file_kb": 223.3,
+    "message_ms": 141.3
+   },
+   {
+    "t_s": 202.9,
+    "rss_mb": 121.3,
+    "session_events": 1944,
+    "embed_cache_entries": 1085,
+    "state_file_kb": 234.9,
+    "message_ms": 125.1
+   },
+   {
+    "t_s": 213.1,
+    "rss_mb": 121.5,
+    "session_events": 2041,
+    "embed_cache_entries": 1089,
+    "state_file_kb": 246.6,
+    "message_ms": 168.7
+   },
+   {
+    "t_s": 223.2,
+    "rss_mb": 121.7,
+    "session_events": 2138,
+    "embed_cache_entries": 1093,
+    "state_file_kb": 258.2,
+    "message_ms": 121.7
+   },
+   {
+    "t_s": 233.4,
+    "rss_mb": 122.0,
+    "session_events": 2236,
+    "embed_cache_entries": 1097,
+    "state_file_kb": 270.0,
+    "message_ms": 180.3
+   },
+   {
+    "t_s": 243.6,
+    "rss_mb": 122.2,
+    "session_events": 2333,
+    "embed_cache_entries": 1101,
+    "state_file_kb": 281.7,
+    "message_ms": 141.9
+   },
+   {
+    "t_s": 253.7,
+    "rss_mb": 122.4,
+    "session_events": 2430,
+    "embed_cache_entries": 1105,
+    "state_file_kb": 293.7,
+    "message_ms": 128.4
+   },
+   {
+    "t_s": 263.9,
+    "rss_mb": 122.6,
+    "session_events": 2528,
+    "embed_cache_entries": 1109,
+    "state_file_kb": 305.4,
+    "message_ms": 145.2
+   },
+   {
+    "t_s": 274.0,
+    "rss_mb": 122.9,
+    "session_events": 2625,
+    "embed_cache_entries": 1113,
+    "state_file_kb": 317.2,
+    "message_ms": 139.1
+   },
+   {
+    "t_s": 284.2,
+    "rss_mb": 123.1,
+    "session_events": 2721,
+    "embed_cache_entries": 1117,
+    "state_file_kb": 328.8,
+    "message_ms": 135.0
+   },
+   {
+    "t_s": 294.3,
+    "rss_mb": 123.3,
+    "session_events": 2818,
+    "embed_cache_entries": 1121,
+    "state_file_kb": 340.5,
+    "message_ms": 156.3
+   },
+   {
+    "t_s": 304.5,
+    "rss_mb": 123.7,
+    "session_events": 2915,
+    "embed_cache_entries": 1125,
+    "state_file_kb": 352.2,
+    "message_ms": 138.6
+   },
+   {
+    "t_s": 314.6,
+    "rss_mb": 123.7,
+    "session_events": 3012,
+    "embed_cache_entries": 1129,
+    "state_file_kb": 364.0,
+    "message_ms": 141.7
+   },
+   {
+    "t_s": 324.8,
+    "rss_mb": 123.9,
+    "session_events": 3109,
+    "embed_cache_entries": 1133,
+    "state_file_kb": 375.8,
+    "message_ms": 145.3
+   },
+   {
+    "t_s": 335.0,
+    "rss_mb": 124.2,
+    "session_events": 3206,
+    "embed_cache_entries": 1137,
+    "state_file_kb": 387.6,
+    "message_ms": 182.5
+   },
+   {
+    "t_s": 345.1,
+    "rss_mb": 124.4,
+    "session_events": 3303,
+    "embed_cache_entries": 1141,
+    "state_file_kb": 399.2,
+    "message_ms": 153.1
+   },
+   {
+    "t_s": 355.4,
+    "rss_mb": 124.6,
+    "session_events": 3400,
+    "embed_cache_entries": 1145,
+    "state_file_kb": 411.0,
+    "message_ms": 200.7
+   },
+   {
+    "t_s": 365.5,
+    "rss_mb": 124.8,
+    "session_events": 3496,
+    "embed_cache_entries": 1149,
+    "state_file_kb": 422.5,
+    "message_ms": 153.3
+   },
+   {
+    "t_s": 375.7,
+    "rss_mb": 125.1,
+    "session_events": 3593,
+    "embed_cache_entries": 1153,
+    "state_file_kb": 434.3,
+    "message_ms": 161.4
+   },
+   {
+    "t_s": 385.9,
+    "rss_mb": 125.3,
+    "session_events": 3688,
+    "embed_cache_entries": 1157,
+    "state_file_kb": 446.0,
+    "message_ms": 151.9
+   },
+   {
+    "t_s": 396.1,
+    "rss_mb": 125.6,
+    "session_events": 3786,
+    "embed_cache_entries": 1161,
+    "state_file_kb": 457.6,
+    "message_ms": 174.9
+   },
+   {
+    "t_s": 406.2,
+    "rss_mb": 125.8,
+    "session_events": 3882,
+    "embed_cache_entries": 1165,
+    "state_file_kb": 469.2,
+    "message_ms": 160.8
+   },
+   {
+    "t_s": 416.4,
+    "rss_mb": 126.1,
+    "session_events": 3979,
+    "embed_cache_entries": 1169,
+    "state_file_kb": 480.9,
+    "message_ms": 149.9
+   },
+   {
+    "t_s": 426.6,
+    "rss_mb": 126.3,
+    "session_events": 4076,
+    "embed_cache_entries": 1173,
+    "state_file_kb": 492.6,
+    "message_ms": 202.2
+   },
+   {
+    "t_s": 436.9,
+    "rss_mb": 126.5,
+    "session_events": 4174,
+    "embed_cache_entries": 1177,
+    "state_file_kb": 504.5,
+    "message_ms": 209.7
+   },
+   {
+    "t_s": 447.0,
+    "rss_mb": 126.8,
+    "session_events": 4271,
+    "embed_cache_entries": 1181,
+    "state_file_kb": 516.2,
+    "message_ms": 172.8
+   },
+   {
+    "t_s": 457.3,
+    "rss_mb": 127.0,
+    "session_events": 4368,
+    "embed_cache_entries": 1185,
+    "state_file_kb": 528.1,
+    "message_ms": 221.8
+   },
+   {
+    "t_s": 467.5,
+    "rss_mb": 127.3,
+    "session_events": 4463,
+    "embed_cache_entries": 1189,
+    "state_file_kb": 539.4,
+    "message_ms": 164.8
+   },
+   {
+    "t_s": 477.6,
+    "rss_mb": 127.5,
+    "session_events": 4560,
+    "embed_cache_entries": 1193,
+    "state_file_kb": 551.3,
+    "message_ms": 168.2
+   },
+   {
+    "t_s": 487.9,
+    "rss_mb": 127.8,
+    "session_events": 4656,
+    "embed_cache_entries": 1197,
+    "state_file_kb": 562.9,
+    "message_ms": 246.8
+   },
+   {
+    "t_s": 498.1,
+    "rss_mb": 128.0,
+    "session_events": 4753,
+    "embed_cache_entries": 1201,
+    "state_file_kb": 574.7,
+    "message_ms": 170.0
+   },
+   {
+    "t_s": 508.3,
+    "rss_mb": 128.3,
+    "session_events": 4850,
+    "embed_cache_entries": 1205,
+    "state_file_kb": 586.4,
+    "message_ms": 166.5
+   },
+   {
+    "t_s": 518.5,
+    "rss_mb": 128.5,
+    "session_events": 4947,
+    "embed_cache_entries": 1209,
+    "state_file_kb": 598.2,
+    "message_ms": 170.5
+   },
+   {
+    "t_s": 528.7,
+    "rss_mb": 128.9,
+    "session_events": 5044,
+    "embed_cache_entries": 1213,
+    "state_file_kb": 609.9,
+    "message_ms": 176.5
+   },
+   {
+    "t_s": 538.9,
+    "rss_mb": 129.1,
+    "session_events": 5141,
+    "embed_cache_entries": 1217,
+    "state_file_kb": 621.8,
+    "message_ms": 174.0
+   },
+   {
+    "t_s": 549.1,
+    "rss_mb": 129.5,
+    "session_events": 5237,
+    "embed_cache_entries": 1221,
+    "state_file_kb": 633.4,
+    "message_ms": 225.3
+   },
+   {
+    "t_s": 559.3,
+    "rss_mb": 129.7,
+    "session_events": 5335,
+    "embed_cache_entries": 1225,
+    "state_file_kb": 645.3,
+    "message_ms": 198.3
+   },
+   {
+    "t_s": 569.5,
+    "rss_mb": 130.1,
+    "session_events": 5431,
+    "embed_cache_entries": 1229,
+    "state_file_kb": 656.8,
+    "message_ms": 172.9
+   },
+   {
+    "t_s": 579.8,
+    "rss_mb": 130.3,
+    "session_events": 5528,
+    "embed_cache_entries": 1233,
+    "state_file_kb": 668.3,
+    "message_ms": 275.3
+   },
+   {
+    "t_s": 590.0,
+    "rss_mb": 130.7,
+    "session_events": 5622,
+    "embed_cache_entries": 1237,
+    "state_file_kb": 679.8,
+    "message_ms": 190.1
+   }
+  ],
+  "rss_slope_mb_per_hour_second_half": 88.5,
+  "live": {
+   "ticks": 120,
+   "outcomes": {
+    "http_503": 120
+   },
+   "tick_interval_ms": {
+    "n": 119,
+    "mean": 5006.6,
+    "p50": 5004.8,
+    "p95": 5006.1,
+    "p99": 5056.2,
+    "max": 5144.1
+   },
+   "tick_request_ms": {
+    "n": 120,
+    "mean": 5.7,
+    "p50": 3.9,
+    "p95": 5.2,
+    "p99": 55.2,
+    "max": 143.3
+   },
+   "vision_ms": {
+    "n": 0
+   },
+   "rescore_ms": {
+    "n": 0
+   },
+   "frame_to_ranking_ms": {
+    "n": 0
+   },
+   "rescore_failures": 0
+  },
+  "save_session_ms": {
+   "n": 150,
+   "mean": 16.54,
+   "p50": 15.78,
+   "p95": 34.81,
+   "p99": 47.85,
+   "max": 49.44
+  },
+  "loop_lag_ms": {
+   "n": 57667,
+   "mean": 0.59,
+   "p50": 0.27,
+   "p95": 0.54,
+   "p99": 1.09,
+   "max": 262.96
+  }
+ },
+ "consistency": {
+  "ops": 400,
+  "concurrency": 16,
+  "snapshots_with_violations": 33,
+  "violation_kinds": {
+   "attached has status 'idle'": 63,
+   "attached is also dismissed": 63
+  },
+  "final_violations": [
+   "attached item system_prompt.txt has status 'idle'",
+   "attached item system_prompt.txt is also dismissed"
+  ],
+  "examples": [
+   {
+    "after_op": 20,
+    "problems": [
+     "attached item system_prompt.txt has status 'idle'",
+     "attached item system_prompt.txt is also dismissed"
+    ]
+   },
+   {
+    "after_op": 30,
+    "problems": [
+     "attached item tone_policy.txt has status 'idle'",
+     "attached item tone_policy.txt is also dismissed"
+    ]
+   },
+   {
+    "after_op": 10,
+    "problems": [
+     "attached item email_templates.md has status 'idle'",
+     "attached item email_templates.md is also dismissed"
+    ]
+   },
+   {
+    "after_op": 40,
+    "problems": [
+     "attached item email_templates.md has status 'idle'",
+     "attached item email_templates.md is also dismissed",
+     "attached item identity.md has status 'idle'",
+     "attached item identity.md is also dismissed"
+    ]
+   },
+   {
+    "after_op": 50,
+    "problems": [
+     "attached item email_templates.md has status 'idle'",
+     "attached item email_templates.md is also dismissed",
+     "attached item identity.md has status 'idle'",
+     "attached item identity.md is also dismissed",
+     "attached item executive_summary_template.md has status 'idle'",
+     "attached item executive_summary_template.md is also dismissed"
+    ]
+   }
+  ]
  }
 }
