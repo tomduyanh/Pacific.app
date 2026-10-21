@@ -130,24 +130,26 @@ Scenario latency (session reset + replay + rescore): mean 1861 ms.
 
 Provider `endpoint`.
 
+Baseline run used provider `mock`; change annotations are shown only between runs on the same provider.
+
 ### Scale: latency vs context-pool size
 
-| Pool | Startup | Message p50 / p95 (ms) | Rescore p95 (ms) | Response size | RSS | BM25 index build p50 | Event-loop lag p99 |
+| Pool | Startup | Message p50 / p95 (ms) | Rescore p95 (ms) | Response size | RSS | BM25 index build p50 | Event-loop lag p99 / max |
 |---|---|---|---|---|---|---|---|
-| 44 | 3.5 s | 3,722 / 4,581 (+30237% worse) | 4,592 | 43 KB | 84 MB | 3 ms | 1 ms |
-| 1,000 | 13.3 s | 4,020 / 4,688 (+3454% worse) | 4,871 | 738 KB | 149 MB | 28 ms | 1 ms |
-| 5,000 | 54.4 s | 4,034 / 5,191 (+773% worse) | 5,527 | 3,663 KB | 449 MB | 150 ms | 1 ms |
-| 10,000 | 107.5 s | 4,858 / 5,880 (+391% worse) | 5,457 | 7,328 KB | 645 MB | 498 ms | 1 ms |
+| 44 | 3.5 s | 3,722 / 4,581 | 4,592 | 43 KB | 84 MB | 3 ms | 1 / 21 ms |
+| 1,000 | 13.3 s | 4,020 / 4,688 | 4,871 | 738 KB | 149 MB | 28 ms | 1 / 160 ms |
+| 5,000 | 54.4 s | 4,034 / 5,191 | 5,527 | 3,663 KB | 449 MB | 150 ms | 1 / 857 ms |
+| 10,000 | 107.5 s | 4,858 / 5,880 | 5,457 | 7,328 KB | 645 MB | 498 ms | 1 / 1,997 ms |
 
 ### Concurrency (pool 1,000, 15 s per level)
 
-| Clients | Throughput | Message p50 / p95 / p99 (ms) | Errors | Event-loop lag p99 |
+| Clients | Throughput | Message p50 / p95 / p99 (ms) | Errors | Event-loop lag p99 / max |
 |---|---|---|---|---|
-| 1 | 0.5 req/s (-95% worse) | 3,218 / 3,986 / 3,986 | 0 | 1 ms |
-| 2 | 0.7 req/s (-94% worse) | 4,608 / 5,784 / 5,784 | 0 | 2 ms |
-| 4 | 1.4 req/s (-89% worse) | 4,366 / 5,018 / 5,018 | 0 | 76 ms |
-| 8 | 1.9 req/s (-84% worse) | 5,113 / 9,261 / 9,261 | 0 | 83 ms |
-| 16 | 2.6 req/s (-80% worse) | 9,797 / 12,577 / 13,623 | 0 | 80 ms |
+| 1 | 0.5 req/s | 3,218 / 3,986 / 3,986 | 0 | 1 / 149 ms |
+| 2 | 0.7 req/s | 4,608 / 5,784 / 5,784 | 0 | 2 / 113 ms |
+| 4 | 1.4 req/s | 4,366 / 5,018 / 5,018 | 0 | 76 / 123 ms |
+| 8 | 1.9 req/s | 5,113 / 9,261 / 9,261 | 0 | 83 / 146 ms |
+| 16 | 2.6 req/s | 9,797 / 12,577 / 13,623 | 0 | 80 / 151 ms |
 
 ### Live capture loop (120 s, pool 1,000)
 
