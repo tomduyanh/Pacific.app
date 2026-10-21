@@ -76,7 +76,8 @@ def run_pacific(client: httpx.Client, s: dict) -> dict:
 # ── Baselines ────────────────────────────────────────────────────────────────
 
 class Baselines:
-    def __init__(self, pool: list[dict], env: dict[str, str]):
+    def __init__(self, pool: list[dict], env: dict[str, str], strict: bool):
+        self.strict = strict
         self.pool = pool
         self.ids = [p["id"] for p in pool]
         self.bm25 = BM25Okapi([p["content"].lower().split() for p in pool])
@@ -86,7 +87,19 @@ class Baselines:
     async def _embed(self, texts: list[str]) -> np.ndarray:
         os.environ.update(self.env)
         from backend import embed  # provider settings are read at import time
-        vecs = await embed.async_embed_many(texts)
+        if self.strict:
+            # Call the provider directly: async_embed_many silently substitutes
+            # placeholder vectors on failure, which would invalidate the baselines.
+            vecs = []
+            try:
+                for i in range(0, len(texts), embed.EMBED_BATCH_SIZE):
+                    vecs += await embed._aembed_gemini_batch(texts[i:i + embed.EMBED_BATCH_SIZE])
+            finally:
+                # The pooled client is bound to this event loop; the next
+                # asyncio.run() needs a fresh one.
+                await embed.aclose_clients()
+        else:
+            vecs = [embed._embed_mock(t) for t in texts]
         mat = np.asarray(vecs, dtype=np.float32)
         return mat / np.maximum(np.linalg.norm(mat, axis=1, keepdims=True), 1e-9)
 
@@ -131,7 +144,9 @@ def evaluate(provider: str, pool_size: int, out_dir: Path) -> dict:
             client = httpx.Client(base_url=server.url, timeout=120)
             pacific = {s["id"]: run_pacific(client, s) for s in scenarios}
             client.post("/api/session/clear")
-        base = Baselines(pool, env)
+        # Under "outage" Pacific falls back to placeholder vectors, so the
+        # baselines do too; under "endpoint" any embedding failure is fatal.
+        base = Baselines(pool, env, strict=provider == "endpoint")
         queries = [scenario_text(s) for s in scenarios]
         q_vecs = base.prepare(queries)
 
