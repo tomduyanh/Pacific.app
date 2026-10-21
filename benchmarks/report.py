@@ -108,7 +108,7 @@ def quality_section(q: dict, base: dict | None) -> list[str]:
                 f"off-topic or filler turns (should be 0%); stayed silent on {_p(g['false_silence_rate'])} of the "
                 f"{g['n_should_suggest']} real requests.", "",
                 f"Scenario latency (session reset + replay + rescore): mean {s['latency_ms']['mean']:.0f} ms.", ""]
-        if base and pool_size in base:
+        if base and pool_size in base and base[pool_size]["meta"]["provider"] == meta["provider"]:
             b0 = base[pool_size]["summary"]["budgets"].get("5000")
             if b0 and b5:
                 out += [f"**Vs baseline run** (5k, % of oracle): Pacific {_p(b0['pacific']['pct_oracle']['mean'])} → "
@@ -118,10 +118,16 @@ def quality_section(q: dict, base: dict | None) -> list[str]:
 
 def stress_section(st: dict, base: dict | None) -> list[str]:
     out = ["## Performance and resilience", "", f"Provider `{st['meta']['provider']}`.", ""]
+    base_provider = (base or {}).get("meta", {}).get("provider")
+    if base and base_provider != st["meta"]["provider"]:
+        # A run on another provider is a reference point, not a before/after.
+        out += [f"Baseline run used provider `{base_provider}`; change annotations are shown only "
+                "between runs on the same provider.", ""]
+        base = None
     b = base or {}
     if "scale" in st:
         out += ["### Scale: latency vs context-pool size", "",
-                "| Pool | Startup | Message p50 / p95 (ms) | Rescore p95 (ms) | Response size | RSS | BM25 index build p50 | Event-loop lag p99 |",
+                "| Pool | Startup | Message p50 / p95 (ms) | Rescore p95 (ms) | Response size | RSS | BM25 index build p50 | Event-loop lag p99 / max |",
                 "|---|---|---|---|---|---|---|---|"]
         for n, r in st["scale"].items():
             before = b.get("scale", {}).get(n, {})
@@ -129,18 +135,18 @@ def stress_section(st: dict, base: dict | None) -> list[str]:
                 f"| {int(n):,} | {r['startup_s']:.1f} s | {_ms(r['message_ms'])} / {_ms(r['message_ms'], 'p95')}"
                 f"{_delta(r['message_ms'].get('p95'), before.get('message_ms', {}).get('p95'))} | "
                 f"{_ms(r['rescore_ms'], 'p95')} | {r['response_kb']:,.0f} KB | {r['rss_after_run_mb']:.0f} MB | "
-                f"{_ms(r['stages'].get('build_index_bm25'))} ms | {_ms(r['loop_lag_ms'], 'p99')} ms |")
+                f"{_ms(r['stages'].get('build_index_bm25'))} ms | {_ms(r['loop_lag_ms'], 'p99')} / {_ms(r['loop_lag_ms'], 'max')} ms |")
         out.append("")
     if "concurrency" in st:
         c = st["concurrency"]
         out += [f"### Concurrency (pool {c['pool_size']:,}, {c['seconds_per_level']:.0f} s per level)", "",
-                "| Clients | Throughput | Message p50 / p95 / p99 (ms) | Errors | Event-loop lag p99 |",
+                "| Clients | Throughput | Message p50 / p95 / p99 (ms) | Errors | Event-loop lag p99 / max |",
                 "|---|---|---|---|---|"]
         for k, r in c["levels"].items():
             msg = r["ops"].get("message", {})
             before = b.get("concurrency", {}).get("levels", {}).get(k, {})
             out.append(f"| {k} | {r['throughput_rps']:.1f} req/s{_delta(r['throughput_rps'], before.get('throughput_rps'), False)} | "
-                       f"{_ms(msg)} / {_ms(msg, 'p95')} / {_ms(msg, 'p99')} | {r['errors']} | {_ms(r['loop_lag_ms'], 'p99')} ms |")
+                       f"{_ms(msg)} / {_ms(msg, 'p95')} / {_ms(msg, 'p99')} | {r['errors']} | {_ms(r['loop_lag_ms'], 'p99')} / {_ms(r['loop_lag_ms'], 'max')} ms |")
         out.append("")
     if "live" in st:
         lv = st["live"]
