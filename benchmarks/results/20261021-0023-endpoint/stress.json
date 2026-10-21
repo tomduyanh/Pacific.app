@@ -1314,5 +1314,61 @@
    "p99": 1.51,
    "max": 288.87
   }
+ },
+ "consistency": {
+  "ops": 400,
+  "concurrency": 16,
+  "snapshots_with_violations": 31,
+  "violation_kinds": {
+   "attached has status 'idle'": 53,
+   "attached is also dismissed": 53
+  },
+  "final_violations": [
+   "attached item system_prompt.txt has status 'idle'",
+   "attached item system_prompt.txt is also dismissed"
+  ],
+  "examples": [
+   {
+    "after_op": 10,
+    "problems": [
+     "attached item email_templates.md has status 'idle'",
+     "attached item email_templates.md is also dismissed"
+    ]
+   },
+   {
+    "after_op": 30,
+    "problems": [
+     "attached item email_templates.md has status 'idle'",
+     "attached item email_templates.md is also dismissed",
+     "attached item slide_narrative_guide.md has status 'idle'",
+     "attached item slide_narrative_guide.md is also dismissed",
+     "attached item identity.md has status 'idle'",
+     "attached item identity.md is also dismissed",
+     "attached item system_prompt.txt has status 'idle'",
+     "attached item system_prompt.txt is also dismissed"
+    ]
+   },
+   {
+    "after_op": 40,
+    "problems": [
+     "attached item identity.md has status 'idle'",
+     "attached item identity.md is also dismissed"
+    ]
+   },
+   {
+    "after_op": 50,
+    "problems": [
+     "attached item identity.md has status 'idle'",
+     "attached item identity.md is also dismissed"
+    ]
+   },
+   {
+    "after_op": 80,
+    "problems": [
+     "attached item executive_summary_template.md has status 'idle'",
+     "attached item executive_summary_template.md is also dismissed"
+    ]
+   }
+  ]
  }
 }
