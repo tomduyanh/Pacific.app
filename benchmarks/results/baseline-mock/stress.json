@@ -1484,5 +1484,152 @@
     ]
    }
   ]
+ },
+ "crash": {
+  "trials": 20,
+  "corrupt_files": 0,
+  "sessions_lost": 0,
+  "outcomes": [
+   {
+    "trial": 0,
+    "file_valid": true,
+    "events_before": 3000,
+    "events_after_restart": 3000,
+    "state_file_kb": 817.2
+   },
+   {
+    "trial": 1,
+    "file_valid": true,
+    "events_before": 3000,
+    "events_after_restart": 3000,
+    "state_file_kb": 817.4
+   },
+   {
+    "trial": 2,
+    "file_valid": true,
+    "events_before": 3000,
+    "events_after_restart": 3000,
+    "state_file_kb": 817.7
+   },
+   {
+    "trial": 3,
+    "file_valid": true,
+    "events_before": 3000,
+    "events_after_restart": 3000,
+    "state_file_kb": 817.9
+   },
+   {
+    "trial": 4,
+    "file_valid": true,
+    "events_before": 3000,
+    "events_after_restart": 3000,
+    "state_file_kb": 817.9
+   },
+   {
+    "trial": 5,
+    "file_valid": true,
+    "events_before": 3000,
+    "events_after_restart": 3000,
+    "state_file_kb": 818.0
+   },
+   {
+    "trial": 6,
+    "file_valid": true,
+    "events_before": 3000,
+    "events_after_restart": 3000,
+    "state_file_kb": 818.0
+   },
+   {
+    "trial": 7,
+    "file_valid": true,
+    "events_before": 3000,
+    "events_after_restart": 3000,
+    "state_file_kb": 818.0
+   },
+   {
+    "trial": 8,
+    "file_valid": true,
+    "events_before": 3000,
+    "events_after_restart": 3000,
+    "state_file_kb": 818.1
+   },
+   {
+    "trial": 9,
+    "file_valid": true,
+    "events_before": 3000,
+    "events_after_restart": 3000,
+    "state_file_kb": 818.1
+   },
+   {
+    "trial": 10,
+    "file_valid": true,
+    "events_before": 3000,
+    "events_after_restart": 3000,
+    "state_file_kb": 818.1
+   },
+   {
+    "trial": 11,
+    "file_valid": true,
+    "events_before": 3000,
+    "events_after_restart": 3000,
+    "state_file_kb": 818.1
+   },
+   {
+    "trial": 12,
+    "file_valid": true,
+    "events_before": 3000,
+    "events_after_restart": 3000,
+    "state_file_kb": 818.1
+   },
+   {
+    "trial": 13,
+    "file_valid": true,
+    "events_before": 3000,
+    "events_after_restart": 3000,
+    "state_file_kb": 818.1
+   },
+   {
+    "trial": 14,
+    "file_valid": true,
+    "events_before": 3000,
+    "events_after_restart": 3000,
+    "state_file_kb": 818.1
+   },
+   {
+    "trial": 15,
+    "file_valid": true,
+    "events_before": 3000,
+    "events_after_restart": 3000,
+    "state_file_kb": 818.1
+   },
+   {
+    "trial": 16,
+    "file_valid": true,
+    "events_before": 3000,
+    "events_after_restart": 3000,
+    "state_file_kb": 818.1
+   },
+   {
+    "trial": 17,
+    "file_valid": true,
+    "events_before": 3000,
+    "events_after_restart": 3000,
+    "state_file_kb": 818.1
+   },
+   {
+    "trial": 18,
+    "file_valid": true,
+    "events_before": 3000,
+    "events_after_restart": 3000,
+    "state_file_kb": 818.1
+   },
+   {
+    "trial": 19,
+    "file_valid": true,
+    "events_before": 3000,
+    "events_after_restart": 3000,
+    "state_file_kb": 818.1
+   }
+  ]
  }
 }
